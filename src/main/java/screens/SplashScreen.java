@@ -3,6 +3,7 @@ package screens;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 public class SplashScreen extends BaseScreen{
     public SplashScreen(AppiumDriver<MobileElement> driver) {
@@ -18,6 +19,7 @@ public class SplashScreen extends BaseScreen{
 
     public AuthenticationScreen checkVersion(String version){
         // check version
+        Assert.assertTrue(isShouldHave(versionTextView,version,10));
         return new AuthenticationScreen(driver);
     }
 }

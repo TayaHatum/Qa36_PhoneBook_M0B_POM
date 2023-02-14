@@ -2,6 +2,7 @@ package screens;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import models.Auth;
 import org.openqa.selenium.support.FindBy;
 
 public class AuthenticationScreen extends BaseScreen{
@@ -19,6 +20,15 @@ public class AuthenticationScreen extends BaseScreen{
     MobileElement passwordEditText;
     @FindBy(xpath = "//*[@text='LOGIN']")
     MobileElement loginButton;
+
+    public AuthenticationScreen fillLoginRegistrationForm(Auth auth){
+
+        should(emailEditText,15);
+        type(emailEditText, auth.getEmail());
+        type(passwordEditText, auth.getPassword());
+
+        return this;
+    }
 
     public AuthenticationScreen fillEmail(String  email){
         should(emailEditText,15);
