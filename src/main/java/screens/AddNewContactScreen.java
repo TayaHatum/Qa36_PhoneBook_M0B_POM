@@ -27,12 +27,12 @@ public class AddNewContactScreen extends BaseScreen{
 
     public AddNewContactScreen fillContactForm(Contact contact){
         should(nameEditText,10);
-        type(nameEditText,contact.getName());
-        type(lastNameEditText, contact.getLastName());
-        type(emailEditText, contact.getEmail());
-        type(phoneEditText, contact.getPhone());
-        type(addressEditText, contact.getAddress());
-        type(descriptionEditText, contact.getDescription());
+        type1(nameEditText,contact.getName());
+        type1(lastNameEditText, contact.getLastName());
+        type1(emailEditText, contact.getEmail());
+        type1(phoneEditText, contact.getPhone());
+        type1(addressEditText, contact.getAddress());
+        type1(descriptionEditText, contact.getDescription());
         return this;
     }
     public ContactListScreen submitContactForm(){
