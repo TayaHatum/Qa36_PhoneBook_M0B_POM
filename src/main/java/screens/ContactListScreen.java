@@ -16,6 +16,13 @@ public class ContactListScreen extends BaseScreen{
     MobileElement moreOption;
     @FindBy(id="com.sheygam.contactapp:id/title")
     MobileElement logoutButton;
+    @FindBy()
+    MobileElement plusButton;
+
+    public AddNewContactScreen openContactForm(){
+        plusButton.click();
+        return new AddNewContactScreen(driver);
+    }
 
 
     public boolean isContactListActivityDisplayed (){
@@ -23,8 +30,12 @@ public class ContactListScreen extends BaseScreen{
     }
 
     public AuthenticationScreen logout(){
-        moreOption.click();
-        logoutButton.click();
+
+        if(activityTextView.getText().equals("Contact list")) {
+            moreOption.click();
+            should(logoutButton, 2);
+            logoutButton.click();
+        }
 
         return new AuthenticationScreen(driver);
     }

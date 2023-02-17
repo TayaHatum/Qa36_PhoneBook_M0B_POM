@@ -40,10 +40,13 @@ public class LoginTests extends AppiumConfig {
 
 
     }
-    @Test(enabled = false)
+    @Test
     public void loginWrongEmail(){
-        // test sc
-
+        Auth auth = Auth.builder().email("noagmail.com").password("Nnoa12345$").build();
+        new AuthenticationScreen(driver)
+                .fillLoginRegistrationForm(auth)
+                .submitLoginNegative()
+                .isErrorMessageContainsText("Login or Password incorrect");
     }
 
     @AfterMethod
