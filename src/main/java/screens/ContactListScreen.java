@@ -28,6 +28,17 @@ public class ContactListScreen extends BaseScreen{
     List<MobileElement> nameList;
     @FindBy(id="com.sheygam.contactapp:id/rowPhone")
     List<MobileElement> phoneList;
+    @FindBy(id="com.sheygam.contactapp:id/rowContainer")
+    List<MobileElement> contacts;
+    @FindBy(id="android:id/button1")
+    MobileElement yesButton;
+
+    public ContactListScreen removeOneContact(int count){
+        MobileElement contact = contacts.get(0);
+       // MobileElement contact = contacts.get(count);
+
+        return this;
+    }
 
     private void checkContacts(List<MobileElement> list,String text){
 
