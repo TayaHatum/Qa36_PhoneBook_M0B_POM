@@ -3,6 +3,8 @@ package tests;
 import config.AppiumConfig;
 import models.Auth;
 import models.Contact;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import screens.AuthenticationScreen;
@@ -10,9 +12,9 @@ import screens.ContactListScreen;
 
 import java.util.Random;
 
-public class AddContactTests extends AppiumConfig {
+public class AddContactBeforeClassTests extends AppiumConfig {
 
-    @BeforeMethod
+    @BeforeClass
     public void precondition(){
         new AuthenticationScreen(driver)
                // .fillLoginRegistrationForm(Auth.builder().email("john@gmail.com").password("Aa12345!").build())
@@ -38,8 +40,8 @@ public class AddContactTests extends AppiumConfig {
                 .fillContactForm(contact)
                 .submitContactForm()
                 .isContactAddedByNameLastName(contact.getName(),contact.getLastName())
-                .isContactAddedByPhone(contact.getPhone())
-                .logout();
+                .isContactAddedByPhone(contact.getPhone());
+
     }
 
     @Test
@@ -55,9 +57,7 @@ public class AddContactTests extends AppiumConfig {
                 .openContactForm()
                 .fillContactForm(contact)
                 .submitContactFormNegative()
-                .isErrorMessageContainsText("name=must not be blank")
-                .returnToContactList()
-                .logout();
+                .isErrorMessageContainsText("name=must not be blank");
 
 
     }
@@ -74,8 +74,12 @@ public class AddContactTests extends AppiumConfig {
                 .openContactForm()
                 .fillContactForm(contact)
                 .submitContactFormNegative()
-                .isErrorMessageContainsText("lastName=must not be blank")
-                 .returnToContactList()
+                .isErrorMessageContainsText("lastName=must not be blank");
+    }
+
+    @AfterClass
+    public void posCondition(){
+        new ContactListScreen(driver)
                 .logout();
     }
 

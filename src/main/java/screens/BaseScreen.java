@@ -23,9 +23,10 @@ public class BaseScreen {
         }
     }
     public void type1(MobileElement element,String text){
+        element.click();
+        element.clear();
         if(text!=null){
-            element.click();
-            element.clear();
+
             element.sendKeys(text);
         }
         driver.hideKeyboard();
@@ -38,5 +39,13 @@ public class BaseScreen {
     public boolean isShouldHave(MobileElement element, String text, int time){
         return new WebDriverWait(driver,time)
                 .until(ExpectedConditions.textToBePresentInElement(element,text));
+    }
+
+    public void pause(int time){
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

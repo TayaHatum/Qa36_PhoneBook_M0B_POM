@@ -56,7 +56,10 @@ public class ContactListScreen extends BaseScreen{
     }
 
     public AddNewContactScreen openContactForm(){
-        plusButton.click();
+       if(activityTextView.getText().equals("Contact list")) {
+        //if(plusButton.isDisplayed()){
+            plusButton.click();
+        }
         return new AddNewContactScreen(driver);
     }
 

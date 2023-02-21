@@ -4,7 +4,11 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import models.Auth;
 import models.Contact;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class AddNewContactScreen extends BaseScreen{
     public AddNewContactScreen(AppiumDriver<MobileElement> driver) {
@@ -44,5 +48,22 @@ public class AddNewContactScreen extends BaseScreen{
 
         createButton.click();
         return this;
+    }
+
+    public AddNewContactScreen isErrorMessageContainsText(String text){
+        Alert alert = new WebDriverWait(driver,10)
+                .until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert();
+        System.out.println(alert.getText());
+        Assert.assertTrue(alert.getText().contains(text));
+        alert.accept();
+
+        return this;
+    }
+    public ContactListScreen returnToContactList(){
+        pause(2000);
+        driver.navigate().back();
+
+        return new ContactListScreen(driver);
     }
 }
