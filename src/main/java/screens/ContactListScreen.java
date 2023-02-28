@@ -3,7 +3,9 @@ package screens;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.touch.offset.PointOption;
+import models.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
@@ -35,6 +37,8 @@ public class ContactListScreen extends BaseScreen{
     List<MobileElement> contacts;
     @FindBy(id="android:id/button1")
     MobileElement yesButton;
+    @FindBy (id ="com.sheygam.contactapp:id/emptyTxt")
+    MobileElement noContactHereTextView;
     int before;
     int after;
 
@@ -174,5 +178,45 @@ public class ContactListScreen extends BaseScreen{
         }
 
         return new AuthenticationScreen(driver);
+    }
+
+    public ContactListScreen provideContacts(){
+        if(contacts.size()<3){
+            for (int i = 0; i < 2; i++) {
+                addContact();
+            }
+
+        }
+        return this;
+    }
+
+    public void addContact(){
+        int i = (int)(System.currentTimeMillis()/1000)%3600;
+        Contact contact =Contact.builder()
+                .name("Mary"+i)
+                .lastName("Wolf"+i)
+                .email("wolf"+i+"@mail.com")
+                .phone("034567"+i)
+                .address("Rehovot")
+                .description("The best friend").build();
+        new ContactListScreen(driver)
+                .openContactForm()
+                .fillContactForm(contact)
+                .submitContactForm();
+
+    }
+
+    public ContactListScreen removeAllContact() {
+        pause(4000);
+        while (driver.findElements(By.xpath("//*[@resource-id='com.sheygam.contactapp:id/rowContainer']")).size()>0){
+            removeOneContact(0);
+        }
+
+        return this;
+    }
+
+    public ContactListScreen isNoContactHere(){
+        shouldHave(noContactHereTextView,"No Contacts. Add One more!",10);
+        return this;
     }
 }

@@ -20,8 +20,9 @@ public class RemoveContactTests extends AppiumConfig {
     }
 
     @BeforeMethod
-    public void providerContacts() {
-        //providerContactData: check count of contacts & if count<2 --->add 2 contacts
+    public void providerOfContacts(){
+        new ContactListScreen(driver)
+                .provideContacts();
     }
 
     @Test
@@ -35,7 +36,8 @@ public class RemoveContactTests extends AppiumConfig {
     @Test
     public void removeOneContactSuccessAssert(){
         new ContactListScreen(driver)
-                .removeOneContactAssert(2);
+                .removeOneContactAssert(2)
+                .isListSizeLessOne();
 
     }
 
